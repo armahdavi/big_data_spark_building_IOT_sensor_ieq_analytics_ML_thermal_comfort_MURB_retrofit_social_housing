@@ -52,8 +52,8 @@ note("")
 ; 
 #delimit cr
 
-graph save "C:/Life/5- Career & Business Development/Portfolio - Git/Buildings IOT/stata/figures/small_bin.gph", replace
-graph export "C:/Life/5- Career & Business Development/Portfolio - Git/Buildings IOT/stata/figures/small_bin.eps", replace
+graph save "${path2}PhD Research/Processed Data/figures/small_bin.gph", replace
+graph export "${path2}PhD Research/Processed Data/figures/small_bin.eps", replace
 
 
 
@@ -77,8 +77,8 @@ note("")
 ; 
 #delimit cr
 
-graph save "C:/Life/5- Career & Business Development/Portfolio - Git/Buildings IOT/stata/figures/large_bin.gph", replace
-graph export "C:/Life/5- Career & Business Development/Portfolio - Git/Buildings IOT/stata/figures/small_bin.eps", replace
+graph save "${path2}PhD Research/Processed Data/figures/small_bin.gph", replace
+graph export "${path2}PhD Research/Processed Data/figures/small_bin.eps", replace
 
 
 * Medium bin
@@ -101,8 +101,8 @@ note("")
 ; 
 #delimit cr
 
-graph save "C:/Life/5- Career & Business Development/Portfolio - Git/Buildings IOT/stata/figures/medium_bin.gph", replace
-graph export "C:/Life/5- Career & Business Development/Portfolio - Git/Buildings IOT/stata/figures/medium_bin.eps", replace
+graph save "${path2}PhD Research/Processed Data/figures/small_bin.gph", replace
+graph export "${path2}PhD Research/Processed Data/figures/small_bin.eps", replace
 
 
 /*
