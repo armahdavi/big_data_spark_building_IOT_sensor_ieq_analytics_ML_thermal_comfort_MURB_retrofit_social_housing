@@ -1,9 +1,9 @@
-* Program to graph OPC vs DC
+* Program to graph OPC vs DC for pm large, median, and small channels
 
 
 // Reading all opc files and append them
 drop _all
-local files: dir "${path2}PhD Research/Processed Data/shortTerm/dc_opc_adjust" files "opc_*.dta"
+local files: dir "${path2}PhD Research/MURB Building IOT/Processed Data/shortTerm/dc_opc_adjust" files "opc_*.dta"
 local i 1
 foreach file in `files' { // this loop appends all the files from separate units (both opc and dc)
 	use "${path2}PhD Research/Processed Data/shortTerm/dc_opc_adjust/`file'", clear
@@ -11,18 +11,18 @@ foreach file in `files' { // this loop appends all the files from separate units
 	gen date = substr("`file'",-10,6)
 	
 	if `i' == 1 {
-		save "${path2}PhD Research/Processed Data/shortTerm/dc_opc_adjust/comb_opc_dc.dta", replace
+		save "${path2}PhD Research/MURB Building IOT/Processed Data/shortTerm/dc_opc_adjust/comb_opc_dc.dta", replace
 		}
 	else {
-		append using "${path2}/TAF UofT IEQ Study/Data/Processed Data/UofT/shortTerm/dc_opc_adjust/comb_opc_dc.dta"
-		save "${path2}PhD Research/Processed Data/shortTerm/dc_opc_adjust/comb_opc_dc.dta", replace
+		append using "${path2}PhD Research/MURB Building IOT/Processed Data/UofT/shortTerm/dc_opc_adjust/comb_opc_dc.dta"
+		save "${path2}PhD Research/MURB Building IOT/shortTerm/dc_opc_adjust/comb_opc_dc.dta", replace
 		}
 	local ++i
 	}
 
 // Clean up all and generate mid size bin
 drop loc date
-append using "${path2}PhD Research/Processed Data/shortTerm/dc_opc_adjust/comb_opc_dc.dta"
+append using "${path2}PhD Research/MURB Building IOT/Processed Data/shortTerm/dc_opc_adjust/comb_opc_dc.dta"
 replace loc = "all" if loc == ""
 replace date = "all" if date == ""
 gen med_bin = small_bin - large_bin
@@ -52,8 +52,8 @@ note("")
 ; 
 #delimit cr
 
-graph save "${path2}PhD Research/Processed Data/figures/small_bin.gph", replace
-graph export "${path2}PhD Research/Processed Data/figures/small_bin.eps", replace
+graph save "${path2}PhD Research/MURB Building IOT/Processed Data/figures/small_bin.gph", replace
+graph export "${path2}PhD Research/MURB Building IOT/Processed Data/figures/small_bin.eps", replace
 
 
 
@@ -77,8 +77,8 @@ note("")
 ; 
 #delimit cr
 
-graph save "${path2}PhD Research/Processed Data/figures/small_bin.gph", replace
-graph export "${path2}PhD Research/Processed Data/figures/small_bin.eps", replace
+graph save "${path2}PhD Research/MURB Building IOT/Processed Data/figures/small_bin.gph", replace
+graph export "${path2}PhD Research/MURB Building IOT/Processed Data/figures/small_bin.eps", replace
 
 
 * Medium bin
@@ -101,10 +101,11 @@ note("")
 ; 
 #delimit cr
 
-graph save "${path2}PhD Research/Processed Data/figures/small_bin.gph", replace
-graph export "${path2}PhD Research/Processed Data/figures/small_bin.eps", replace
+graph save "${path2}PhD Research/MURB Building IOT/Processed Data/figures/small_bin.gph", replace
+graph export "${path2}PhD Research/MURB Building IOT/Processed Data/figures/small_bin.eps", replace
 
 
+// Other notes
 /*
 dc/opc
 
@@ -122,6 +123,7 @@ Median 442/201
 
 Steps:
 1- See if large channel by including channel 6 in full
+
 ec
 Mean: 280/175
 Median: 180/102
