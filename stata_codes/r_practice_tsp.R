@@ -7,9 +7,9 @@ library(haven)
 library(ggplot2)
 
 # Load data
-data1 <- read_dta("C:/Users/alima/Google Drive/TAF UofT IEQ Study/Data/Processed Data/UofT/HUD_QFF_concentration.dta")
-data2 <- read_dta("C:/Users/alima/Google Drive/TAF UofT IEQ Study/Data/Processed Data/UofT/shortTerm/summary/tsp_master.dta")
-data3 <- read_dta("C:/Users/alima/Google Drive/ASHRAE_1649/data/processed/ldps/d_D_qff_psd_all.dta")
+data1 <- read_dta("${path2}PhD Research/MURB Building IOT/Processed Data/HUD_QFF_concentration.dta")
+data2 <- read_dta("${path2}PhD Research/MURB Building IOT/Processed Data/shortTerm/tsp_master.dta")
+data3 <- read_dta("${path2}PhD Research/MURB Building IOT/Processed Data/ldps/d_D_qff_psd_all.dta")
 
 # Process first dataset
 data1 <- data1 %>%
@@ -19,7 +19,7 @@ data1 <- data1 %>%
   mutate(Suite = as.character(Suite), study = "HUD")
 
 # Save intermediate data
-write_dta(data1, "C:/Life/5- Career & Business Development/Portfolio - Git/Buildings IOT/Social_housing/processed/tsp_interstudy_comp.dta")
+write_dta(data1, "${path2}PhD Research/MURB Building IOT/Processed Data/tsp_interstudy_comp.dta")
 
 # Process second dataset
 data2 <- data2 %>%
@@ -36,7 +36,7 @@ data2 <- data2 %>%
 data_combined <- bind_rows(data2, data1)
 
 # Save combined data
-write_dta(data_combined, "C:/Life/5- Career & Business Development/Portfolio - Git/Buildings IOT/Social_housing/processed/tsp_interstudy_comp.dta")
+write_dta(data_combined, "${path2}PhD Research/MURB Building IOT/Processed Data/tsp_interstudy_comp.dta")
 
 # Process third dataset
 data3 <- data3 %>%
@@ -48,7 +48,7 @@ data3 <- data3 %>%
 data_combined <- bind_rows(data_combined, data3)
 
 # Save final combined data
-write_dta(data_combined, "C:/Life/5- Career & Business Development/Portfolio - Git/Buildings IOT/Social_housing/processed/tsp_interstudy_comp.dta")
+write_dta(data_combined, "${path2}PhD Research/MURB Building IOT/Processed Data/tsp_interstudy_comp.dta")
 
 # Classify data
 data_combined <- data_combined %>%
@@ -78,4 +78,6 @@ ggplot(data_combined, aes(x = factor(class, labels = c("TCH All", "TCH No Smoke"
   annotate("text", x = 3, y = 50, label = "n = 47", size = 3, hjust = 0) +
   annotate("text", x = 4, y = 70, label = "n = 99", size = 3, hjust = 0) +
   annotate("text", x = 5, y = 90, label = "n = 79", size = 3, hjust = 0)
+
+ggsave("${path2}PhD Research/MURB Building IOT/Processed Data/stata/tsp_all_projectrs_R.jpg", plot = p, width = 10, height = 6, dpi = 300)
 
