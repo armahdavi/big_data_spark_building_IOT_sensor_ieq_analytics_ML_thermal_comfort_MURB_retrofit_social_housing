@@ -4,7 +4,7 @@
 set more off
 drop _all
 
-use "${path2}/TAF UofT IEQ Study/Data/Processed Data/UofT/shortTerm/summary/tsp_master.dta", clear
+use "${path2}PhD Research/MURB Building IOT/Processed Data/shortTerm/summary/tsp_master.dta", clear
 
 drop if substr(Suite,3,1) != "1"
 so Suite
@@ -16,10 +16,10 @@ foreach item in `r(levels)' {
 order Suite smokes tsp_conc
 
 keep if Suite == "mr1_02bi"
-save "C:/Life/5- Career & Business Development/Portfolio - Git/Buildings IOT/Social_housing/processed/temp_suite_smoke_diff.dta", replace
+save "${path2}PhD Research/MURB Building IOT/Processed Data/shortTerm/temp_suite_smoke_diff.dta", replace
 
 
-use "${path2}/TAF UofT IEQ Study/Data/Processed Data/UofT/shortTerm/summary/tsp_master.dta", clear
+use "${path2}PhD Research/MURB Building IOT/Processed Data/shortTerm/summary/tsp_master.dta", clear
 
 drop if substr(Suite,3,1) != "2"
 so Suite
@@ -30,10 +30,10 @@ foreach item in `r(levels)' {
 	}
 order Suite smokes tsp_conc
 keep if Suite == "mr2_02bb"
-append using "C:/Life/5- Career & Business Development/Portfolio - Git/Buildings IOT/Social_housing/processed/temp_suite_smoke_diff.dta"
-save "C:/Life/5- Career & Business Development/Portfolio - Git/Buildings IOT/Social_housing/processed/temp_suite_smoke_diff.dta", replace
+append using "${path2}PhD Research/MURB Building IOT/Processed Data/shortTerm/temp_suite_smoke_diff.dta"
+save "${path2}PhD Research/MURB Building IOT/Processed Data/shortTerm/temp_suite_smoke_diff.dta", replace
 
-use "${path2}/TAF UofT IEQ Study/Data/Processed Data/UofT/shortTerm/summary/tsp_master.dta", clear
+use "${path2}PhD Research/MURB Building IOT/Processed Data/shortTerm/summary/tsp_master.dta", clear
 drop if substr(Suite,3,1) != "4"
 so Suite
 levelsof Suite
@@ -43,10 +43,10 @@ foreach item in `r(levels)' {
 	}
 order Suite smokes tsp_conc
 keep if Suite == "mr4_02ai" | Suite == "mr4_03ah"
-append using "C:/Life/5- Career & Business Development/Portfolio - Git/Buildings IOT/Social_housing/processed/temp_suite_smoke_diff.dta"
-save "C:/Life/5- Career & Business Development/Portfolio - Git/Buildings IOT/Social_housing/processed/temp_suite_smoke_diff.dta", replace
+append using "${path2}PhD Research/MURB Building IOT/Processed Data/shortTerm/temp_suite_smoke_diff.dta"
+save "${path2}PhD Research/MURB Building IOT/Processed Data/shortTerm/temp_suite_smoke_diff.dta", replace
 
-use "${path2}/TAF UofT IEQ Study/Data/Processed Data/UofT/shortTerm/summary/tsp_master.dta", clear
+use "${path2}PhD Research/MURB Building IOT/Processed Data/shortTerm/summary/tsp_master.dta", clear
 drop if substr(Suite,3,1) != "5"
 so Suite
 levelsof Suite
@@ -56,11 +56,11 @@ foreach item in `r(levels)' {
 	}
 order Suite smokes tsp_conc
 keep if Suite == "mr5_03ag" | Suite == "mr5_06ae" | Suite == "mr5_09ad"
-append using "C:/Life/5- Career & Business Development/Portfolio - Git/Buildings IOT/Social_housing/processed/temp_suite_smoke_diff.dta"
-save "C:/Life/5- Career & Business Development/Portfolio - Git/Buildings IOT/Social_housing/processed/temp_suite_smoke_diff.dta", replace
+append using "${path2}PhD Research/MURB Building IOT/Processed Data/shortTerm/temp_suite_smoke_diff.dta"
+save "${path2}PhD Research/MURB Building IOT/Processed Data/shortTerm/temp_suite_smoke_diff.dta", replace
 
 
-use "${path2}/TAF UofT IEQ Study/Data/Processed Data/UofT/shortTerm/summary/tsp_master.dta", clear
+use "${path2}PhD Research/MURB Building IOT/Processed Data/shortTerm/summary/tsp_master.dta", clear
 drop if substr(Suite,3,1) != "6"
 so Suite
 levelsof Suite
@@ -70,8 +70,8 @@ foreach item in `r(levels)' {
 	}
 order Suite smokes tsp_conc
 keep if Suite == "mr6_06ac" | Suite == "mr6_09aj" | Suite == "mr6_11ac"
-append using "${path2}/TAF UofT IEQ Study/Data/Processed Data/UofT/temp_suite_smoke_diff"
-save "C:/Life/5- Career & Business Development/Portfolio - Git/Buildings IOT/Social_housing/processed/temp_suite_smoke_diff.dta", replace
+append using "${path2}PhD Research/MURB Building IOT/Processed Data/shortTerm/temp_suite_smoke_diff"
+save "${path2}PhD Research/MURB Building IOT/Processed Data/shortTerm/temp_suite_smoke_diff.dta", replace
 
 
 // Graphing
@@ -81,7 +81,7 @@ twoway (
 line tsp_conc round if Suite == "mr1_02bi", lcol(black) 
 
 ylabel(10 30 100, tposition(crossing) angle(horizontal) nogrid)
-ytitle("TSP Concentration (µg/m{superscript:3})", size (mede)) 
+ytitle("TSP Concentration (Âµg/m{superscript:3})", size (mede)) 
 yscale(range(6 200) log)
 xscale(range(1.5 4.5))
 xlabel(none, tpos(none)) 
@@ -143,3 +143,6 @@ text(4 3 "Deployment Round", size(medsmall))
 
 ;
 #delimit cr
+
+graph save "${path2}PhD Research/MURB Building IOT/Processed Data//figures/tsp_track.gph", replace
+graph export "C${path2}PhD Research/MURB Building IOT/Processed Data/figures/tsp_track.eps", replace
