@@ -1,20 +1,18 @@
 * Program to sketch PM concentrations (small bin number) vs. building type and smoke status (suite by suite)
 
-
 // Reading PM data and refining
-use "C:\Life\5- Career & Business Development\Portfolio - Git\Buildings IOT\Social_Housing\processed\PM_for_plot.dta", clear
+use "${path2}PhD Research/MURB Building IOT/Processed Data/STcompleteAppend.dta", clear
 
 // Graphing
 #delimit ;
 graph box small_countm3 if small_countm3  > 100000 & small_countm3  <100000000, over(smokes2, ax(off)  ) over(locID, ax(off)  ) asyvars noout
 box (1, col(purple)) box (2, col(green))
 
-ytitle(PM > 0.5 µm (#/m{superscript:3}), size(large)) 
+ytitle(PM > 0.5 Âµm (#/m{superscript:3}), size(large)) 
 yscale(range(100000 100000000) log)
 ylabel(100000 300000 1000000 3000000 10000000 30000000 100000000 , format(%1.0e) nogrid angle(horizontal) valuelabel tposition(crossing) labsize(medlarge))
 
 text(40000 50 "Building ID", size (vlarge))
-
 
 legend(on)
 legend(order(1 "Smoking" 2 "Non-smoking")) 
@@ -36,6 +34,7 @@ yli(`med_nosmoke', lp(solid) lc(gs10))
 
 ; 
 #delimit cr
-graph save "${path}Google Drive/TAF UofT IEQ Study/Data/Processed Data/UofT/shortTerm/summary/graphs/ia2016_fig2_UnitByUnit.gph", replace
-graph export "${path}Google Drive/TAF UofT IEQ Study/Data/Processed Data/UofT/shortTerm/summary/graphs/ia2016_fig2_UnitByUnit.eps", replace
+
+graph save "${path2}PhD Research/MURB Building IOT/Processed Data/figures/ia2016_fig2_UnitByUnit.gph", replace
+graph export "${path2}PhD Research/MURB Building IOT/Processed Data/figures/ia2016_fig2_UnitByUnit.eps", replace
 
