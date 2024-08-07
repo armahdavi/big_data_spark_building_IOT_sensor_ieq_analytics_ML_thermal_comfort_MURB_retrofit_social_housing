@@ -35,8 +35,8 @@ graphregion(color(white) margin(t=11 b=9 l =10))
 ;
 #delimit cr
 
-graph save "C:\Life\5- Career & Business Development\Portfolio - Git\Buildings IOT\stata\figures\tsp_comparison_old.gph", replace
-graph save "C:\Life\5- Career & Business Development\Portfolio - Git\Buildings IOT\stata\figures\tsp_comparison_old.eps", replace
+graph save "${path2}PhD Research/MURB Building IOT/Processed Data/figures/tsp_comparison_old.gph", replace
+graph save "${path2}PhD Research/MURB Building IOT/Processed Data/figures/فsp_comparison_old.eps", replace
 
 /*
 text(150 96.5 "n = `ind_7_smoke'", size(vsmall) orientation(vertical))
