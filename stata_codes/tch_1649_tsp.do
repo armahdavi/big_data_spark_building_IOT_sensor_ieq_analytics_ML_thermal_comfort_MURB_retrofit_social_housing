@@ -2,7 +2,7 @@
 
 // Reading TCH TSP concentration and refining
 set more off
-use "${path2}/TAF UofT IEQ Study/Data/Processed Data/UofT/shortTerm/summary/tsp_master.dta" , clear
+use "${path2}PhD Research/MURB Building IOT/Processed Data/shortTerm/summary/tsp_master.dta", clear
 keep if stage == 2
 gen site = substr(Suite,3,1)
 destring site, replace
@@ -11,7 +11,7 @@ rename tsp_conc TSP_conc_ug_m3
 keep Suite site season smokes runtime TSP_conc_ug_m3  
 
 // Merging with RP-1649 TSP concentrations
-append using "${path2}/ASHRAE_1649/data/processed/ldps/d_D_qff_psd_all.dta", force
+append using "${path2}/Paper 2 - PSD_QFF/processed/ldps/d_D_qff_psd_all.dta", force
 keep Suite site round  TSP_conc_ug_m3 smokes filter_type
 
 gen case = "TCH Smoke"
@@ -27,7 +27,7 @@ yscale(range(1 1000) log)
 legend(order(1 "RP-1646" 2 "TCH Non-Smoke" 3 "TCH Smoke"))
 legend(rows(3) pos(1) ring(0))
 
-ytitle("TSP Concentration (µg/m{superscript:3})", size (large)) 
+ytitle("TSP Concentration (Âµg/m{superscript:3})", size (large)) 
 
 plotregion(fcolor(white) lcolor(black) lwidth(medium) margin(zero) lpattern(solid) ifcolor(none) ilcolor(none) ilwidth(none) ilpattern(solid))
 graphregion(color(white) margin(t=11 b=9 l =10))
