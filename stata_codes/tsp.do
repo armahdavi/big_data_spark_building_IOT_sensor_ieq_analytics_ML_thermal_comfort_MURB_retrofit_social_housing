@@ -2,7 +2,7 @@
 
 // Reading start and end runtimes
 set more off
-import excel "${path2}/TAF UofT IEQ Study/Data/FDS/XR-100_times.xlsx", firstrow clear
+import excel "${path2}PhD Research/MURB Building IOT/Data/FDS/XR-100_times.xlsx", firstrow clear
 
 drop if Install_time == ""
 drop if Missinghours == "U"
@@ -22,10 +22,10 @@ gen runtime = ((retr - install))/1000
 replace runtime = runtime - Miss * 60*60 if Miss != .
 drop if runtime < 0
 drop Mis
-save "${path2}/TAF UofT IEQ Study/Data/Processed Data/UofT/shortTerm/summary/tsp_master.dta" , replace
+save "${path2}PhD Research/MURB Building IOT/Processed Data/shortTerm/summary/tsp_master.dta", replace
 
 // Reading TSP mass values (later used for TSP concentration values
-import excel "${path2}/TAF UofT IEQ Study/Data/Raw Data/Filters/raw_mr0_00aa_xr1_1015C00010_181127_am.xlsx", sheet("Filter_Master") firstrow clear
+import excel "${path2}PhD Research/MURB Building IOT/Raw Data/raw_mr0_00aa_xr1_1015C00010_181127_am.xlsx", sheet("Filter_Master") firstrow clear
 drop if locID == ""
 drop if xr100SN == "Field Blank"
 replace FilterType = "uniform" if FilterType == "unifrom" | FilterType == "Unifrom" | FilterType == "Uniform"
@@ -41,8 +41,8 @@ replace Season = "Fall" if substr(iDa,6,2) == "11" | substr(iDa,6,2) == "12"
 drop if Stage == ""
 keep filterSN FilterType preDeployMass preDeployFlow_cfm locID postDeployFlow_cfm postConditionMass deltaMass_g Season Stage
 
-// Merging with flowrate lab data sheet and filtration volume calculations, cleanups and TSP concentration calculations
-merge m:1 filterSN using "${path2}/TAF UofT IEQ Study/Data/Processed Data/UofT/shortTerm/summary/tsp_flow_makeup.dta"
+// Merging with flowrate lab data sheet and filtration volume calculations, cleanups, and TSP concentration calculations
+merge m:1 filterSN using "${path2}PhD Research/MURB Building IOT/Processed Data/UofT/shortTerm/summary/tsp_flow_makeup.dta"
 replace preDeployF = Pre if preDeployF == .
 drop Pre
 
@@ -59,7 +59,7 @@ drop if flow == . // sad but one round doesn't have flow before deploy
 drop _merge
 rename locID Suite
 
-merge m:m Stage Season Suite using "${path2}/TAF UofT IEQ Study/Data/Processed Data/UofT/shortTerm/summary/tsp_master.dta"
+merge m:m Stage Season Suite using "${path2}PhD Research/MURB Building IOT/Processed Data/shortTerm/summary/tsp_master.dta"
 drop _merge
 drop if flow == . // mostly conaminated by composite filter and deployment round of jun 22 2015 which initial flows weren't measured
 drop if runtime == . // observbations were mass was measured but filter was unplagged
@@ -72,7 +72,7 @@ encode Stage, gen (stage) label(stage)
 encode Season, gen (season) label(season2)
 drop Stage Season
 
-merge m:m Suite using "${path2}/TAF UofT IEQ Study/Data/Processed Data/UofT/shortTerm/summary/smoke_master.dta"
+merge m:m Suite using "${path2}PhD Research/MURB Building IOT/Processed Data/shortTerm/summary/tsp_master.dta"
 keep if _merge == 3
 drop _merge
 duplicates drop
@@ -82,5 +82,5 @@ keep deltaMass_g filterSN Suite flow_error flow runtime tsp_conc stage season sm
 gen tsp_conc_error = tsp_conc * sqrt((mass_er/deltaMass_g)^2 + (flow_error/flow)^2 + ((8*60*60)/runtime)^2)
 so Suite stage
 
-save "${path2}/TAF UofT IEQ Study/Data/Processed Data/UofT/shortTerm/summary/tsp_master.dta" , replace
+save "${path2}PhD Research/MURB Building IOT/Processed Data/shortTerm/summary/tsp_master.dta", replace
 so tsp_conc
