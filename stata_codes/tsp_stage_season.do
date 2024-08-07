@@ -3,11 +3,11 @@
 set more off
 clear all
 
-use "${path2}/TAF UofT IEQ Study/Data/Processed Data/UofT/shortTerm/summary/tsp_master.dta", clear
+use "${path2}PhD Research/MURB Building IOT/Processed Data/shortTerm/summary/tsp_master.dta", clear
 gen bldg_no = substr(Suite,3,1)
 destring bldg_no, replace
 
-do "${path2}/TAF UofT IEQ Study/ado/label_tsp.do"
+do "${path2}PhD Research/MURB Building IOT/ado/label_tsp.do"
 * encode Stage, gen (stage) label(stage)
 * encode Season, gen (season) label(season)
 * encode smoke_evidence, gen (smoke) label(smoke)
@@ -23,7 +23,7 @@ yscale(range(1 1000) log)
 legend(order(1 "Summer" 2 "Fall"))
 legend(pos(1) ring(0))
 
-ytitle("TSP Concentration (µg/m{superscript:3})", size (large)) 
+ytitle("TSP Concentration (Âµg/m{superscript:3})", size (large)) 
 
 plotregion(fcolor(white) lcolor(black) lwidth(medium) margin(zero) lpattern(solid) ifcolor(none) ilcolor(none) ilwidth(none) ilpattern(solid))
 graphregion(color(white) margin(t=11 b=9 l =10))
