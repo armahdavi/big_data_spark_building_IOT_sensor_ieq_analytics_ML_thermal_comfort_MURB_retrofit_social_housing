@@ -10,14 +10,14 @@ replace floor = substr(Suite,5,2) if substr(Suite,5,1) == "1"
 destring floor, replace
 replace floor = floor * 2.5
 gen bldg = substr(Suite,1,3)
-save "C:/PhD Research/MURB Building IOT/Processed Data/shortTerm/tsp_height.dta", replace
+save "${path2}PhD Research/MURB Building IOT/Processed Data/shortTerm/tsp_height.dta", replace
 
 
 // Graphing for separate buildings
 levelsof bldg
 
 foreach item in `r(levels)' {
-	use "C:/PhD Research/MURB Building IOT/Processed Data/shortTerm/tsp_height.dta", clear
+	use "${path2}PhD Research/MURB Building IOT/Processed Data/shortTerm/tsp_height.dta", clear
 	keep if bldg == "`item'"
       
 	#delimit ;
@@ -42,7 +42,7 @@ foreach item in `r(levels)' {
 		;
 		#delimit cr
 
-	graph save "C:/PhD Research/MURB Building IOT/Processed Data/figures/fig_`item'_height.gph", replace
-	graph save "C:/PhD Research/MURB Building IOT/Processed Data/figures/fig_`item'_height.eps", replace
+	graph save "${path2}PhD Research/MURB Building IOT/Processed Data/figures/fig_`item'_height.gph", replace
+	graph save "${path2}PhD Research/MURB Building IOT/Processed Data/figures/fig_`item'_height.eps", replace
 	}
          
