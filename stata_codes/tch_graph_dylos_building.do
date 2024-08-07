@@ -4,7 +4,7 @@
 set more off 
 
 // Reading count C data and refining
-use "${path}Google Drive/TAF UofT IEQ Study/Data/Processed Data/UofT/shortTerm/summary/STcompleteAppend (1).dta", clear
+use "${path2}PhD Research/MURB Building IOT/Processed Data/shortTerm/summary/STcompleteAppend.dta", clear
 
 capture gen buildingID = substr(locID,1,3)
 capture encode locID, gen(locCode)
@@ -23,7 +23,7 @@ local med_nosmoke = `r(p50)'
 #delimit ;
 graph box small_countm3 if small_countm3  > 100000 & small_countm3  <100000000, over(buildCode, ax(off)  )  asyvars noout
 
-ytitle(PM > 0.5 µm (#/m{superscript:3}), size(large)) 
+ytitle(PM > 0.5 Âµm (#/m{superscript:3}), size(large)) 
 yscale(range(100000 100000000) log)
 ylabel(100000 300000 1000000 3000000 10000000 30000000 100000000 , format(%1.0e) nogrid angle(horizontal) valuelabel tposition(crossing) labsize(medlarge))
 
@@ -39,5 +39,5 @@ yli(`med_nosmoke', lp(solid) lc(gs10))
 ;
 delimit cr
 
-graph save "C:\Life\5- Career & Business Development\Portfolio - Git\Buildings IOT\stata\figures\ia2016_building.gph", replace
-graph save "C:\Life\5- Career & Business Development\Portfolio - Git\Buildings IOT\stata\figures\ia2016_building.eps", replace
+graph save "${path2}PhD Research/MURB Building IOT/Processed Data/figures/ia2016_building.gph", replace
+graph save "${path2}PhD Research/MURB Building IOT/Processed Data/figures/ia2016_building.eps", replace
