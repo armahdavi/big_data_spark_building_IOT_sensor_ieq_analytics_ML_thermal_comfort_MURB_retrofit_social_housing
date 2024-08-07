@@ -4,11 +4,11 @@ set more off
 drop _all
 
 // Reading x-axis cases
-import excel "${path2}/TAF UofT IEQ Study/ado/graphs/case_identifier.xlsx", clear firstrow
-save "C:\Life\5- Career & Business Development\Portfolio - Git\Buildings IOT\Social_housing\processed\case_identifier.dta", replace
+import excel "${path2}PhD Research/MURB Building IOT/DES/case_identifier.xlsx", clear firstrow
+save "${path2}PhD Research/MURB Building IOT/Processed Data/case_identifier.dta", replace
 
 // Reading tsp and identifying building no.
-use "${path2}/TAF UofT IEQ Study/Data/Processed Data/UofT/shortTerm/summary/tsp_master.dta", clear
+use "${path2}PhD Research/MURB Building IOT/Processed Data/shortTerm/summary/tsp_master.dta", clear
 rename smokes smoke
 gen bldg_no = substr(Suite,3,1)
 destring bldg_no, replace
@@ -23,7 +23,7 @@ so bldg stage season smoke
 * drop stage Season smoke_evidence
 
 // Merging tsp data with x-axis cases
-merge m:1 bldg season smoke stage using "C:\Life\5- Career & Business Development\Portfolio - Git\Buildings IOT\Social_housing\processed\case_identifier.dta"
+merge m:1 bldg season smoke stage using "${path2}PhD Research/MURB Building IOT/Processed Data/case_identifier.dta"
 drop if _merge == 2
 drop _merge
 
@@ -61,7 +61,7 @@ box(1, col(gs9)) box(2, col(black))
 ylabel(1 10 100 1000 , tposition(crossing) angle(horizontal) nogrid)
 yscale(range(1 1000) log)
 legend(order(1 "No Smoke" 2 "Smoke"))
-ytitle("TSP Concentration (µg/m{superscript:3})", size (large)) 
+ytitle("TSP Concentration (Âµg/m{superscript:3})", size (large)) 
 
 plotregion(fcolor(white) lcolor(black) lwidth(medium) margin(zero) lpattern(solid) ifcolor(none) ilcolor(none) ilwidth(none) ilpattern(solid))
 graphregion(color(white) margin(t=11 b=9 l =10))
@@ -94,8 +94,8 @@ text(150 96.5 "n = `ind_7_smoke'", size(vsmall) orientation(vertical))
 #delimit cr
 
 
-graph save "C:\Life\5- Career & Business Development\Portfolio - Git\Buildings IOT\stata\figures\tsp_by_smoke.gph", replace
-graph save "C:\Life\5- Career & Business Development\Portfolio - Git\Buildings IOT\stata\figures\tsp_by_smoke.eps", replace
+graph save "${path2}PhD Research/MURB Building IOT/Processed Data/figures/tsp_by_smoke.gph", replace
+graph save "${path2}PhD Research/MURB Building IOT/Processed Data/figures/tsp_by_smoke.eps", replace
 
 
 // scatter plot of concentrations vs. building number, season, retrofit stage and smoke
@@ -107,7 +107,7 @@ graph save "C:\Life\5- Career & Business Development\Portfolio - Git\Buildings I
 twoway (
 scatter tsp_conc case_id_2 if bldg == 1 & stage == 1 & season == 1 & smoke == 0, mcol(red) mfcol(white) msymbol(X) msize(small) 
 
-ytitle("TSP Concentration (µg/m{superscript:3})", size (large)) 
+ytitle("TSP Concentration (Âµg/m{superscript:3})", size (large)) 
 ylabel( 1 10 100 1000 , tposition(crossing) angle(horizontal) nogrid)
 yscale(range(1 1000) log )
 xscale(range(0 21))
@@ -232,7 +232,7 @@ text(700 19.5 "G", size(medium))
 ;
 #delimit cr
 
-graph save "C:\Life\5- Career & Business Development\Portfolio - Git\Buildings IOT\stata\figures\scatter_tsp_by_smoke_stage_season.gph", replace
-graph save "C:\Life\5- Career & Business Development\Portfolio - Git\Buildings IOT\stata\figures\scatter_tsp_by_smoke_stage_season.eps", replace
+graph save "${path2}PhD Research/MURB Building IOT/Processed Data/figures/scatter_tsp_by_smoke_stage_season.gph", replace
+graph save "${path2}PhD Research/MURB Building IOT/Processed Data/figures/scatter_tsp_by_smoke_stage_season.eps", replace
 
 
