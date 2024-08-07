@@ -35,7 +35,7 @@ append using "${path2}PhD Research/MURB Building IOT/Processed Data/shortTerm/ts
 save "${path2}PhD Research/MURB Building IOT/Processed Data/shortTerm/tsp_interstudy_comp.dta", replace
 
 // Reading RP-1649 TSP data and cleaning up
-use "${path2}PhD Research/ASHRAE_1649/data/processed/ldps/d_D_qff_psd_all.dta", clear
+use "${path2}PhD Research/Paper 2 - PSD_QFF/data/processed/ldps/d_D_qff_psd_all.dta", clear
 keep TSP_conc_ug_m3 round site
 rename TSP_conc tsp_conc
 rename site Suite
