@@ -11,7 +11,7 @@ rename tsp_conc TSP_conc_ug_m3
 keep Suite site season smokes runtime TSP_conc_ug_m3  
 
 // Merging with RP-1649 TSP concentrations
-append using "${path2}/Paper 2 - PSD_QFF/processed/ldps/d_D_qff_psd_all.dta", force
+append using "${path2}PhD Research/Paper 2 - PSD_QFF/processed/ldps/d_D_qff_psd_all.dta", force
 keep Suite site round  TSP_conc_ug_m3 smokes filter_type
 
 gen case = "TCH Smoke"
