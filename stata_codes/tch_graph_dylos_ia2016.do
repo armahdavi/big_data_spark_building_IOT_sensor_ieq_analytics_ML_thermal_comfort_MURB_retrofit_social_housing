@@ -2,7 +2,7 @@
 
 // Reading PM data and refining
 set more off
-use "${path}Google Drive/TAF UofT IEQ Study/Data/Processed Data/UofT/shortTerm/summary/STcompleteAppend (1).dta", clear
+use "${path2}PhD Research/MURB Building IOT/Processed Data/STcompleteAppend.dta", clear
 
 capture gen buildingID = substr(locID,1,3)
 capture encode locID, gen(locCode)
@@ -11,7 +11,7 @@ gen byte smokes2 = .
 replace smokes2 = 1 if smokes =="Yes"
 replace smokes2 = 2 if smokes =="No"
 capture gen IDfloor = substr(locID,5,2)
-save "C:\Life\5- Career & Business Development\Portfolio - Git\Buildings IOT\Social_Housing\processed\PM_for_plot.dta", replace
+save "${path2}PhD Research/MURB Building IOT/Processed Data/PM_for_plot.dta", replace
 
 // Summarizing statistical medians of each group for labeling later in the figure
 quietly sum small_countm3 if (small_countm3  > 100000 & small_countm3  <100000000) & smokes2==1, d
@@ -44,7 +44,7 @@ while `bldg' <=7 {
 }
 
 // Going back to the previous version of dataframe (non-groupby)
-use "C:\Life\5- Career & Business Development\Portfolio - Git\Buildings IOT\Social_Housing\processed\PM_for_plot.dta", clear
+use "${path2}PhD Research/MURB Building IOT/Processed Data/STcompleteAppend.dta", clear
 
 gen byte bldg = real(substr(locID,3,1))
 local bldg 1
@@ -73,7 +73,7 @@ graph box small_countm3 if small_countm3  > 100000 & small_countm3  <100000000, 
 box (1, col(purple)) box (2, col(green))
 
 
-ytitle(PM > 0.5 µm (#/m{superscript:3}), size(large)) 
+ytitle(PM > 0.5 Âµm (#/m{superscript:3}), size(large)) 
 yscale(range(100000 100000000) log)
 ylabel(100000 300000 1000000 3000000 10000000 30000000 100000000 , format(%1.0e) nogrid angle(horizontal) valuelabel tposition(crossing) labsize(medlarge))
 
@@ -116,6 +116,6 @@ text(40000 50 "Building ID", size (vlarge))
 ; 
 #delimit cr
 
-graph save "C:\Life\5- Career & Business Development\Portfolio - Git\Buildings IOT\stata\figures\ia2016_building_smoke.gph", replace
-graph save "C:\Life\5- Career & Business Development\Portfolio - Git\Buildings IOT\stata\figures\ia2016_building_smoke.eps", replace
+graph save "${path2}PhD Research/MURB Building IOT/Processed Data/figures/ia2016_building_smoke.gph", replace
+graph save "${path2}PhD Research/MURB Building IOT/Processed Data/figures/ia2016_building_smoke.gph", replace
 
