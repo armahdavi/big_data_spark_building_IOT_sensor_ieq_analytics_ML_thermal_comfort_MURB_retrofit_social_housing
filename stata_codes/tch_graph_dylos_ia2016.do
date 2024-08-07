@@ -1,4 +1,4 @@
-* Program to sketch PM concentrations (small bin number) vs. building tupe and smoke status
+* Program to sketch PM concentrations (small bin number) vs. building type and smoke status
 
 // Reading PM data and refining
 set more off
@@ -14,13 +14,13 @@ capture gen IDfloor = substr(locID,5,2)
 save "${path2}PhD Research/MURB Building IOT/Processed Data/PM_for_plot.dta", replace
 
 // Summarizing statistical medians of each group for labeling later in the figure
-quietly sum small_countm3 if (small_countm3  > 100000 & small_countm3  <100000000) & smokes2==1, d
+quietly sum small_countm3 if (small_countm3  > 100000 & small_countm3  <100000000) & smokes2 == 1, d
 local med_smoke = `r(p50)'
-quietly sum small_countm3 if (small_countm3  > 100000 & small_countm3  <100000000) & smokes2==2, d
+quietly sum small_countm3 if (small_countm3  > 100000 & small_countm3  <100000000) & smokes2 == 2, d
 local med_nosmoke = `r(p50)'
-quietly sum large_countm3 if (small_countm3  > 10000 & small_countm3  <10000000) & smokes2==1, d //for adding line indicators for median of large particles to the figure, AM
+quietly sum large_countm3 if (small_countm3  > 10000 & small_countm3  <10000000) & smokes2 == 1, d //for adding line indicators for median of large particles to the figure, AM
 local med_smoke_large = `r(p50)'
-quietly sum large_countm3 if (small_countm3  > 10000 & small_countm3  <10000000) & smokes2==1, d //for adding line indicators for median of large particles to the figure, AM
+quietly sum large_countm3 if (small_countm3  > 10000 & small_countm3  <10000000) & smokes2 == 1, d //for adding line indicators for median of large particles to the figure, AM
 local med_nosmoke_large = `r(p50)' 
 
 // Making a groupby by building
