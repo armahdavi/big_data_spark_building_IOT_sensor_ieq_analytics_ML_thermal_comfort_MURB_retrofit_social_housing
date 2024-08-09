@@ -3,9 +3,9 @@
 set more off
 clear all
 
-do "${path2}/TAF UofT IEQ Study/ado/label_tsp.do"
+do "${path2}PhD Research/MURB Building IOT/ado/label_tsp.do"
 
-local sensorfiles "${path2}/TAF UofT IEQ Study/Data/Raw Data/Short term packages/"
+local sensorfiles "${path2}PhD Research/MURB Building IOT/Raw Data/Short term packages/"
 local files: dir "`sensorfiles'" files "*.dta"
 
 local i 1
@@ -39,12 +39,12 @@ foreach file in `files' {
 		
 		
 		if `i' == 1 {
-			save "${path2}/TAF UofT IEQ Study/Data/tch_st_sensor_dc_master.dta", replace
+			save "${path2}PhD Research/MURB Building IOT/Processed Data/tch_st_sensor_dc_master.dta", replace
 			local ++i
 			}
 		else {	
-			append using "${path2}/TAF UofT IEQ Study/Data/tch_st_sensor_dc_master.dta"
-			save "${path2}/TAF UofT IEQ Study/Data/tch_st_sensor_dc_master.dta", replace
+			append using "${path2}PhD Research/MURB Building IOT/Processed Data/tch_st_sensor_dc_master.dta"
+			save "${path2}PhD Research/MURB Building IOT/Processed Data/tch_st_sensor_dc_master.dta", replace
 			
 			}
 		}
@@ -65,41 +65,41 @@ foreach file in `files' {
 		gen FMM_file_name = "`file'"
 			
 		if `j' == 1 {
-			save "${path2}/TAF UofT IEQ Study/Data/tch_st_sensor_fmm_master.dta", replace
+			save "${path2}PhD Research/MURB Building IOT/Processed Data/tch_st_sensor_fmm_master.dta", replace
 			local ++j
 			}
 		else {	
-			append using "${path2}/TAF UofT IEQ Study/Data/tch_st_sensor_fmm_master.dta"
-			save "${path2}/TAF UofT IEQ Study/Data/tch_st_sensor_fmm_master.dta", replace
+			append using "${path2}PhD Research/MURB Building IOT/Processed Data/tch_st_sensor_fmm_master.dta"
+			save "${path2}PhD Research/MURB Building IOT/Processed Data/tch_st_sensor_fmm_master.dta", replace
 			}
 		}
 	}
 
-merge m:m Suite Season Stage using "${path2}/TAF UofT IEQ Study/Data/tch_st_sensor_dc_master.dta"
+merge m:m Suite Season Stage using "${path2}PhD Research/MURB Building IOT/Processed Data/tch_st_sensor_dc_master.dta"
 drop _merge
-save "${path2}/TAF UofT IEQ Study/Data/tch_st_sensor_master_spreadsheet.dta", replace
+save "${path2}PhD Research/MURB Building IOT/Processed Data/tch_st_sensor_master_spreadsheet.dta", replace
 
 /*
-use "${path2}/TAF UofT IEQ Study/Data/tch_st_sensor_dc_master.dta", clear
+use "${path2}PhD Research/MURB Building IOT/Processed Data/tch_st_sensor_dc_master.dta", clear
 encode Season, gen(season) label(season)
 encode Stage, gen(stage) label(stage)
 drop Stage Season
-save "${path2}/TAF UofT IEQ Study/Data/tch_st_sensor_dc_master.dta", replace
+save "${path2}PhD Research/MURB Building IOT/Processed Data/tch_st_sensor_dc_master.dta", replace
 
-use "${path2}/TAF UofT IEQ Study/Data/tch_st_sensor_fmm_master.dta", clear
+use "${path2}PhD Research/MURB Building IOT/Processed Data/tch_st_sensor_fmm_master.dta", clear
 encode Season, gen(season) label(season)
 encode Stage, gen(stage) label(stage)
 drop Stage Season
-save "${path2}/TAF UofT IEQ Study/Data/tch_st_sensor_fmm_master.dta", replace
+save "${path2}PhD Research/MURB Building IOT/Processed Data/tch_st_sensor_fmm_master.dta", replace
 */
 
 // ssc install fs
-// cd "${path2}/TAF UofT IEQ Study/Data/Raw Data/Short term packages/OPC"
+// cd "${path2}PhD Research/MURB Building IOT/Raw Data/Short term packages/OPC"
 // folders 18*
 
 set more off
 clear all
-local opcfiles "${path2}/TAF UofT IEQ Study/Data/Processed Data/UofT/shortTerm/opc_processed_incomplete_timestamps"
+local opcfiles "${path2}PhD Research/MURB Building IOT/Raw Data/shortTerm/opc_processed_incomplete_timestamps"
 local files: dir "`opcfiles'" files "*.dta"
 
 local k 1
@@ -129,12 +129,12 @@ foreach file in `files' {
 	
 	
 	if `k' == 1 {
-		save "${path2}/TAF UofT IEQ Study/Data/tch_st_sensor_opc_master.dta", replace
+		save "${path2}PhD Research/MURB Building IOT/Processed Data/tch_st_sensor_opc_master.dta", replace
 		local ++k
 		}
 	else {
-		append using "${path2}/TAF UofT IEQ Study/Data/tch_st_sensor_opc_master.dta"
-		save "${path2}/TAF UofT IEQ Study/Data/tch_st_sensor_opc_master.dta", replace
+		append using "${path2}PhD Research/MURB Building IOT/Processed Data/tch_st_sensor_opc_master.dta"
+		save "${path2}PhD Research/MURB Building IOT/Processed Data/tch_st_sensor_opc_master.dta", replace
 		}
 	}
 
@@ -145,38 +145,38 @@ replace Stage = "Pre" if Stage == "15"
 replace Stage = "Post" if Stage == "17"
 save "${path2}/TAF UofT IEQ Study/Data/tch_st_sensor_opc_master.dta", replace
 
-merge m:m Suite Season Stage using "${path2}/TAF UofT IEQ Study/Data/tch_st_sensor_master_spreadsheet.dta"
+merge m:m Suite Season Stage using "${path2}PhD Research/MURB Building IOT/Processed Data/tch_st_sensor_master_spreadsheet.dta"
 drop _merge
 
 do "${path2}/TAF UofT IEQ Study/ado/label_tsp.do"
 encode Season, gen(season) label(season)
 encode Stage, gen(stage) label(stage)
 drop Stage Season 
-save "${path2}/TAF UofT IEQ Study/Data/tch_st_sensor_master_spreadsheet.dta", replace	
+save "${path2}PhD Research/MURB Building IOT/Processed Data/tch_st_sensor_master_spreadsheet.dta", replace	
 
-// save "${path2}/TAF UofT IEQ Study/Data/tch_st_sensor_opc_master.dta", replace
+// save "${path2}PhD Research/MURB Building IOT/Processed Data/tch_st_sensor_opc_master.dta", replace
 
-use "${path2}/TAF UofT IEQ Study/Data/Processed Data/UofT/shortTerm/summary/tsp_master.dta", clear
+use "${path2}PhD Research/MURB Building IOT/Processed Data/shortTerm/summary/tsp_master.dta", clear
 
 // replace Season = "Spring/Summer" if Season == "Summer"
 // replace Season = "Fall/Winter" if Season == "Fall"
 
-merge m:m Suite season stage using "${path2}/TAF UofT IEQ Study/Data/tch_st_sensor_master_spreadsheet.dta"
+merge m:m Suite season stage using "${path2}PhD Research/MURB Building IOT/Processed Data/tch_st_sensor_master_spreadsheet.dta"
 keep Suite season stage FMM_file_name DC_large_zero DC_small_zero DC_file_name OPC_file_name OPC_large_zero OPC_small_zero tsp_conc tsp_conc_error
 /* 
-do "${path2}/TAF UofT IEQ Study/ado/label_tsp.do"
+do "${path2}PhD Research/MURB Building IOT/ado/ado/label_tsp.do"
 encode Stage, gen (stage) label(stage)
 encode Season, gen (season) label(season)
 drop Stage
 drop Season
 */
 
-merge m:m Suite using "${path2}/TAF UofT IEQ Study/Data/Processed Data/UofT/shortTerm/summary/smoke_master_final.dta"
+merge m:m Suite using "${path2}PhD Research/MURB Building IOT/Processed Data/shortTerm/summary/smoke_master_final.dta"
 drop if _merge == 2
 drop _merge 
 
 order Suite stage season smoke tsp* FMM DC* OPC_f
 so Suite stage season
 
-save "${path2}/TAF UofT IEQ Study/Data/tch_st_sensor_master_spreadsheet.dta", replace
+save "${path2}PhD Research/MURB Building IOT/Processed Data/tch_st_sensor_master_spreadsheet.dta", replace
 
