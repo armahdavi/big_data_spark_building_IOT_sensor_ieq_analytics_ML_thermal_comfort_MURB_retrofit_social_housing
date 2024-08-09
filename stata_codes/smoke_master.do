@@ -10,7 +10,7 @@
 * 4- Make final decision of smoke based on pre and post record of smoking and returns one single "Y" or "N" case to a suite (for the entire project) (Line 83-113)
 * 5- Make two formats of smoke data (wide showing round by round, and long showing evidence per suite) (Line 83-end)
 
-import excel "${path2}/TAF UofT IEQ Study/Data/smoke_evidence.xlsx", firstrow clear
+import excel ""${path2}PhD Research/MURB Building IOT/Data/smoke_evidence.xlsx", firstrow clear
 rename locID Suite
 tostring date_install date_r, replace
 gen Stage = "Pre" if substr(date_r,1,2) == "15" | substr(date_i,1,2) == "15"
@@ -36,7 +36,7 @@ encode Season, gen (season) label(season2)
 encode smoke_evidence, gen (smokes) label (smoke)
 
 drop Stage Season smoke_evidence
-save "${path2}/TAF UofT IEQ Study/Data/Processed Data/UofT/shortTerm/summary/smoke_master.dta", replace
+save "${path2}PhD Research/MURB Building IOT/Processed Data/shortTerm/summary/smoke_master.dta", replace
 
 import excel "${path2}/TAF UofT IEQ Study/Tracking document/Tracking_document_v58_KC.xlsx", sheet("Participating units") firstrow clear
 keep AW AX G
@@ -60,7 +60,7 @@ encode Season, gen (season) label(season2)
 encode Smokes, gen (smokes2) label (smoke)
 
 drop Stage Season Smokes Smokes_ev
-merge 1:1 Suite stage season using "${path2}/TAF UofT IEQ Study/Data/Processed Data/UofT/shortTerm/summary/smoke_master.dta"
+merge 1:1 Suite stage season using "${path2}PhD Research/MURB Building IOT/Processed Data/shortTerm/summary/smoke_master.dta"
 gsort _merge Suite
 
 replace smokes = smokes2 if _merge == 1
@@ -68,7 +68,7 @@ replace smokes = smokes2 if _merge == 3 & smokes == 3
 // replace smokes = smokes2 if _merge == 3 & (substr(Suite,3,1) != "6" | substr(Suite,3,1) != "7") 
 drop smokes2 _merge
 // duplicates drop 
-save "${path2}/TAF UofT IEQ Study/Data/Processed Data/UofT/shortTerm/summary/smoke_master.dta", replace
+save "${path2}PhD Research/MURB Building IOT/Processed Data/shortTerm/summary/smoke_master.dta", replace
 so Suite
 
 //obs 321
@@ -112,11 +112,11 @@ encode smoke_final, gen(smoke_final2) label (smoke)
 drop smoke_final
 rename smoke_final2 smoke_final
 
-save "${path2}/TAF UofT IEQ Study/Data/Processed Data/UofT/shortTerm/summary/smoke_master_reshape_round.dta", replace
+save "${path2}PhD Research/MURB Building IOT/Processed Data/shortTerm/summary/smoke_master_reshape_round.dta", replace
 keep Suite smoke_final
-save "${path2}/TAF UofT IEQ Study/Data/Processed Data/UofT/shortTerm/summary/smoke_master_final.dta", replace
+save "${path2}PhD Research/MURB Building IOT/Processed Data/shortTerm/summary/smoke_master_final.dta", replace
 
-use "${path2}/TAF UofT IEQ Study/Data/Processed Data/UofT/shortTerm/summary/smoke_master_reshape_round.dta", clear
+use "${path2}PhD Research/MURB Building IOT/Processed Data/shortTerm/summary/smoke_master_reshape_round.dta", clear
 
 drop smokes* smoke_final
 
@@ -132,7 +132,7 @@ encode Stage, gen(stage) label(stage)
 drop Stage
 // obs 182
 
-merge 1:m Suite stage using "${path2}/TAF UofT IEQ Study/Data/Processed Data/UofT/shortTerm/summary/smoke_master.dta"
+merge 1:m Suite stage using "${path2}PhD Research/MURB Building IOT/Processed Data/shortTerm/summary/smoke_master.dta"
 drop if season == .
 drop _merge smokes
 
@@ -140,4 +140,4 @@ so Suite stage
 order Suite stage season smoke
 rename smoke smokes
 drop if season == .
-save "${path2}/TAF UofT IEQ Study/Data/Processed Data/UofT/shortTerm/summary/smoke_master.dta", replace
+save "${path2}PhD Research/MURB Building IOT/Processed Data/shortTerm/summary/smoke_master.dta", replace
