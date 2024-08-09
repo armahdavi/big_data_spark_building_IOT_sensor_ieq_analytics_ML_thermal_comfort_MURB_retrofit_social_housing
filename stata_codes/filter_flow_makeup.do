@@ -1,7 +1,7 @@
 * ?
 
 // do "${path2}/TAF UofT IEQ Study/ado/flow_correction_ratio.do"
-import excel "${path2}/TAF UofT IEQ Study/Data/Raw Data/Filters/raw_mr0_00aa_xr1_1015C00010_181127_am.xlsx", sheet("Filter_Master") firstrow clear
+import excel "${path2}PhD Research/MURB Building IOT/Data/raw_mr0_00aa_xr1_1015C00010_181127_am.xlsx", sheet("Filter_Master") firstrow clear
 
 // clean up
 drop if locID == ""
@@ -37,4 +37,4 @@ drop if pre == .
 
 rename pre Pre
 
-save "${path2}/TAF UofT IEQ Study/Data/Processed Data/UofT/shortTerm/summary/tsp_flow_makeup.dta", replace
+save "${path2}PhD Research/MURB Building IOT/Processed Data/shortTerm/tsp_flow_makeup.dta", replace
