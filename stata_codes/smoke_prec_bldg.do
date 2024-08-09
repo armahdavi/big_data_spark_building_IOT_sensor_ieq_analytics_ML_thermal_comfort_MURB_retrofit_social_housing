@@ -1,10 +1,10 @@
 * Program to calculate the percentage of smoking suites in each studied building
 
-use "C:\Users\alima\Google Drive\TAF UofT IEQ Study\Data\tch_st_sensor_master_spreadsheet.dta", clear
+use "${path2}PhD Research/MURB Building IOT/Processed Data/tch_st_sensor_master_spreadsheet.dta", clear
 keep Suite
 duplicates drop
 
-merge 1:m Suite using "C:\Users\alima\Google Drive\TAF UofT IEQ Study\Data\Processed Data\UofT\shortTerm\summary\smoke_master_reshape_round.dta"
+merge 1:m Suite using "${path2}PhD Research/MURB Building IOT/Processed Data/smoke_master_reshape_round.dta"
 keep if _merge != 2
 
 gen smoke = 1 if smoke_pre == 1 | smoke_post == 1
