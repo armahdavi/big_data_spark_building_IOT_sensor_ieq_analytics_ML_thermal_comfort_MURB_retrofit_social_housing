@@ -10,7 +10,7 @@
 * 4- Make final decision of smoke based on pre and post record of smoking and returns one single "Y" or "N" case to a suite (for the entire project) (Line 83-113)
 * 5- Make two formats of smoke data (wide showing round by round, and long showing evidence per suite) (Line 83-end)
 
-import excel ""${path2}PhD Research/MURB Building IOT/Data/smoke_evidence.xlsx", firstrow clear
+import excel "${path2}PhD Research/MURB Building IOT/Data/smoke_evidence.xlsx", firstrow clear
 rename locID Suite
 tostring date_install date_r, replace
 gen Stage = "Pre" if substr(date_r,1,2) == "15" | substr(date_i,1,2) == "15"
