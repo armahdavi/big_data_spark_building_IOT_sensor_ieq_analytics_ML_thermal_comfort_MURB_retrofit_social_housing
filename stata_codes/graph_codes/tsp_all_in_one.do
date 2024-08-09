@@ -1,7 +1,7 @@
-
+* Program to sketch all TSP concentrations ordered by retrofit round, and the magnitude of TSP
 
 set more off
-use "C:\Users\alima\Google Drive\TAF UofT IEQ Study\Data\Processed Data\UofT\shortTerm\summary\tsp_master.dta", clear
+use "${path2}PhD Research/MURB Building IOT/Processed Data/shortTerm/summary/tsp_master.dta", clear
 
 so stage season smokes tsp_conc
 drop if smokes == .
@@ -35,7 +35,7 @@ xtitle("")
 xlabel(none ,tlength(0))
 yscale(range(0 200))
 ylabel(0 (50) 200,   angle(horizontal) nogrid tpos(out) ) 
-ytitle("Concentrations (µg/m{superscript:3})", size(large)  height(4) orientation(vertical))
+ytitle("Concentrations (Âµg/m{superscript:3})", size(large)  height(4) orientation(vertical))
 plotregion(fcolor(white) lcolor(black) lwidth(medium) margin(zero) lpattern(solid) ifcolor(none) ilcolor(none) ilwidth(none) ilpattern(solid))
 graphregion(color(white) margin(vlarge))
 
@@ -97,7 +97,7 @@ xtitle("")
 xlabel(none ,tlength(0))
 yscale(range(0 200))
 ylabel(0 (50) 200,   angle(horizontal) nogrid tpos(out) ) 
-ytitle("Concentrations (µg/m{superscript:3})", size(large)  height(4) orientation(vertical))
+ytitle("Concentrations (Âµg/m{superscript:3})", size(large)  height(4) orientation(vertical))
 plotregion(fcolor(white) lcolor(black) lwidth(medium) margin(zero) lpattern(solid) ifcolor(none) ilcolor(none) ilwidth(none) ilpattern(solid))
 graphregion(color(white) margin(vlarge))
 
@@ -109,9 +109,6 @@ text(-13 39 "Fall", size(small))
 
 text(-13 92 "Summer", size(small))
 text(-13 147 "Fall", size(small))
-
-
-
 )
 
 (bar tsp_conc case_id if smokes == 1, col(gs4) lcol(black))
@@ -120,14 +117,6 @@ text(-13 147 "Fall", size(small))
 ;
 #delimit cr
 
+graph save "${path2}PhD Research/MURB Building IOT/Processed Data/figures/tsp_conc_ordered.gph", replace
+graph export "${path2}PhD Research/MURB Building IOT/Processed Data/figures/tsp_conc_ordered.eps", replace
 
-/*
-
-21
-13
-
-35 
-18
-
-33
-16
