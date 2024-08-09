@@ -1,7 +1,7 @@
 * Program to calculate flow uncertainty
-* This is essential as the chamber tested during pre and pos-retrofit filter deployment changed. The post deployment chamber were much less airtight
+* This is essential as the chamber tested during pre and post-retrofit filter deployment changed. The post-deployment chamber was much more airtight (plexiglass vs. cardboard)
 
-import excel "${path2}/TAF UofT IEQ Study/Data/Raw Data/Filters/raw_mr0_00aa_xr1_1015C00010_181127_am.xlsx", sheet("Filter_Master") firstrow clear
+import excel "${path2}PhD Research/MURB Building IOT/Data/raw_mr0_00aa_xr1_1015C00010_181127_am.xlsx", sheet("Filter_Master") firstrow clear
 // clean up
 drop if locID == ""
 drop if xr100SN == "Field Blank"
