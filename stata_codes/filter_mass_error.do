@@ -1,7 +1,7 @@
-* Program to evaluate tsp uncertainties
+* Program to evaluate TSP uncertainties
 
-// Calculating a scalar variable called mass_er whic is the median of all undertainties
-import excel "${path2}/TAF UofT IEQ Study/Data/Raw Data/Filters/raw_mr0_00aa_xr1_1015C00010_181127_am.xlsx", sheet("Filter_Master") firstrow clear
+// Calculating a scalar variable called mass_er which is the median of all uncertainties
+import excel "${path2}PhD Research/MURB Building IOT/Data/raw_mr0_00aa_xr1_1015C00010_181127_am.xlsx", sheet("Filter_Master") firstrow clear
 keep if xr100SN == "Field Blank"
 replace FilterType = "uniform" if FilterType == "unifrom" | FilterType == "Unifrom" | FilterType == "Uniform"
 keep if FilterT == "uniform"
@@ -18,7 +18,7 @@ encode Stage, gen (stage) label(stage)
 encode Season, gen (season) label(season2)
 drop Stage Season
 rename locID Suite 
-merge 1:m Suite stage season using "${path2}/TAF UofT IEQ Study/Data/Processed Data/UofT/shortTerm/summary/smoke_master.dta"
+merge 1:m Suite stage season using "${path2}PhD Research/MURB Building IOT/Processed Data/shortTerm/summary/smoke_master.dta"
 keep if _merge == 3
 drop _merge
 so smokes
