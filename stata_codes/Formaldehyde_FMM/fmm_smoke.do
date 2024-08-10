@@ -1,6 +1,7 @@
-set more off
-use "C:\Users\alima\Google Drive\TAF UofT IEQ Study\Data\Processed Data\UofT\shortTerm\fmm_all.dta", clear
+* Illustrate FMM vs. buildings
 
+set more off
+use "${path2}PhD Research/MURB Building IOT/Processed Data/fmm_all.dta", clear
 collapse (median) HCHO_u, by(Suite Season Stage)
 
 gen keepdrop =  ""
@@ -13,7 +14,7 @@ foreach suite in `r(levels)' {
 keep if keepdr == "keep"
 
 levelsof Suite
-use "C:\Users\alima\Google Drive\TAF UofT IEQ Study\Data\Processed Data\UofT\shortTerm\fmm_all.dta", clear
+use "${path2}PhD Research/MURB Building IOT/Processed Data/fmm_all.dta", clear
 
 gen keepdrop =  ""
 foreach suite in `r(levels)' {
@@ -22,7 +23,7 @@ foreach suite in `r(levels)' {
 
 keep if keepdr == "keep"
 
-merge m:m Suite using "C:\Users\alima\Google Drive\TAF UofT IEQ Study\Data\Processed Data\UofT\shortTerm\summary\smoke_master.dta"
+merge m:m Suite using "${path2}PhD Research/MURB Building IOT/Processed Data/shortTerm/summary/smoke_master.dta"
 drop if _mer == 2
 drop _merge stage season
 
@@ -39,7 +40,7 @@ graph box HCHO_u, over(smoke) over(bldg, relabel(1 "A" 2 "B" 3 "C" 4 "D" 5 "E" 6
 box (1, col(gs12)) 
 box (2, col(gs4)) 
 
-ytitle("HCHO Concentrations (µg/m{superscript:3})", size(large) height(4)) 
+ytitle("HCHO Concentrations (Âµg/m{superscript:3})", size(large) height(4)) 
 yscale(range(0 85))
 ylabel(0 (20) 80 , angle(horizontal) nogrid tpos(centre))
 
@@ -72,7 +73,6 @@ text(82 91 "n = 2", size(small))
 ; 
 #delimit cr
 
-
-graph save "C:\Life\5- Career & Business Development\Portfolio - Git\Buildings IOT\stata\figures\fmm_box_bldg_smoke.gph", replace
-graph save "C:\Life\5- Career & Business Development\Portfolio - Git\Buildings IOT\stata\figures\fmm_box_bldg_smoke.eps", replace
+graph save "${path2}PhD Research/MURB Building IOT/Processed Data/figures/fmm_box_bldg_smoke.gph", replace
+graph save "${path2}PhD Research/MURB Building IOT/Processed Data/figures/fmm_box_bldg_smoke.eps", replace
 
